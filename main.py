@@ -77,7 +77,6 @@ class Application:
         limit = float(self.builder.get_variable('input_limit').get())
         numberQuarter = int(self.builder.get_variable('input_numberQuarter').get())
 
-        # create a CLAHE object (Arguments are optional).
         img_grayScale = np.copy(self.img_histogram_grayscale)
         clahe = cv2.createCLAHE(clipLimit=limit, tileGridSize=(numberQuarter, numberQuarter))
         cl1 = clahe.apply(img_grayScale) 
@@ -93,26 +92,27 @@ class Application:
         plt.title('Histrograma')
         plt.show()  
 
-    def StartImageRegistration(self):
-        im2 = np.array(self.img_normal , dtype=np.uint8)  
-        im1 = np.array(self.img_altered , dtype=np.uint8)      
+    def StartImageDifference(self):
+        imgNormal = np.array(self.img_normal , dtype=np.uint8)  
+        imgAltered = np.array(self.img_altered , dtype=np.uint8)      
+        img = np.array(self.img_normal, dtype=np.uint8)
 
-        im1Reg = self.myFunction(im2, im1)
-        im2 = cv2.cvtColor(im2, cv2.COLOR_BGR2GRAY)
+        img_aligned_gray = cv2.cvtColor(self.AlignmentImage(imgNormal, imgAltered), cv2.COLOR_BGR2GRAY)
+        img_normal_gray = cv2.cvtColor(imgNormal, cv2.COLOR_BGR2GRAY)
 
-        row, col = im1Reg.shape
+        row, col = img_normal_gray.shape
 
         for y in range(0, row):
             for x in range(0, col):
-                d1 = im2[y, x] - im1Reg[y, x]
+                difference = img_normal_gray[y, x] - img_aligned_gray[y, x]
 
-                if( d1 != 0):
-                    if(((im2[y, x] - im1Reg[y, x]) <= 10 ) or ((im1Reg[y, x] - im2[y, x]) <= 10)):
-                        im2[y, x] = 0
+                if( difference != 0):
+                    if(((img_normal_gray[y, x] - img_aligned_gray[y, x]) <= 10 ) or ((img_aligned_gray[y, x] - img_normal_gray[y, x]) <= 10)):
+                        img[y, x] = 0
                     else: 
-                        im2[y, x] = 255
+                        img[y, x] = 255
                 else:
-                    im2[y, x] = 0
+                    img[y, x] = 0
 
         cv2.namedWindow('Image_normal', cv2.WINDOW_NORMAL)
         cv2.imshow('Image_normal', self.img_normal) 
@@ -121,11 +121,9 @@ class Application:
         cv2.imshow('Image_altered', self.img_altered) 
 
         cv2.namedWindow('Image_search', cv2.WINDOW_NORMAL)
-        cv2.imshow('Image_search', im2)     
+        cv2.imshow('Image_search', img)     
         cv2.waitKey(0) 
 
-
-    #Start 
     def StartErasyNoisy(self):
         video = self.video
         if (video.isOpened()== False): 
@@ -175,9 +173,6 @@ class Application:
     def ShowImage_Histogram(self):     
         try:
             img_histogram_grayscale = np.copy(self.img_histogram_grayscale)
-            #print("ArrayUno: ", img_histogram_grayscale)
-            #hist,bins = np.histogram(img_histogram_grayscale.ravel(), 256, [0,256])
-            #print("ArrayDos: ", img_histogram_grayscale.ravel())
             plt.hist(img_histogram_grayscale.ravel(), 256,[0,256])
             plt.ylabel('Numero de pixeles')
             plt.xlabel("Nivel en grises")
