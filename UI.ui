@@ -1,0 +1,313 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface>
+  <object class="ttk.Frame" id="OeH">
+    <property name="cursor">arrow</property>
+    <property name="height">600</property>
+    <property name="padding">0</property>
+    <property name="takefocus">false</property>
+    <property name="width">400</property>
+    <layout>
+      <property name="column">0</property>
+      <property name="propagate">False</property>
+      <property name="row">0</property>
+    </layout>
+    <child>
+      <object class="ttk.Label" id="lb_title">
+        <property name="anchor">center</property>
+        <property name="compound">top</property>
+        <property name="justify">left</property>
+        <property name="text" translatable="yes">Operaciones Puntuales e Histograma</property>
+        <property name="wraplength">0</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="ipady">20</property>
+          <property name="propagate">False</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="lb_ruido">
+        <property name="anchor">w</property>
+        <property name="background">#424242</property>
+        <property name="foreground">#ffffff</property>
+        <property name="padding">3</property>
+        <property name="text" translatable="yes">Eliminación de ruido y Alinamiento</property>
+        <property name="width">34</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="propagate">True</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="btn_selectVideo">
+        <property name="command">GetVideo</property>
+        <property name="compound">top</property>
+        <property name="cursor">arrow</property>
+        <property name="default">normal</property>
+        <property name="state">normal</property>
+        <property name="text" translatable="yes">Seleccionar video</property>
+        <property name="width">24</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="pady">10</property>
+          <property name="propagate">True</property>
+          <property name="row">3</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="lb_deteccion">
+        <property name="background">#424242</property>
+        <property name="foreground">#ffffff</property>
+        <property name="padding">3</property>
+        <property name="text" translatable="yes">Detección de alteraciones</property>
+        <property name="width">34</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="pady">5</property>
+          <property name="propagate">True</property>
+          <property name="row">4</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="btn_selectImageNormal">
+        <property name="command">GetImageNormal</property>
+        <property name="text" translatable="yes">Select Image Normal</property>
+        <property name="width">24</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="propagate">True</property>
+          <property name="row">5</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="btn_selectImageAltered">
+        <property name="command">GetImageAltered</property>
+        <property name="text" translatable="yes">Select Image Altered</property>
+        <property name="width">24</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="ipady">0</property>
+          <property name="pady">5</property>
+          <property name="propagate">True</property>
+          <property name="row">5</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="Label_4">
+        <property name="background">#424242</property>
+        <property name="cursor">arrow</property>
+        <property name="foreground">#ffffff</property>
+        <property name="padding">3</property>
+        <property name="takefocus">false</property>
+        <property name="text" translatable="yes">Improve night image</property>
+        <property name="underline">0</property>
+        <property name="width">34</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="pady">10</property>
+          <property name="propagate">True</property>
+          <property name="row">7</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="Label_5">
+        <property name="anchor">center</property>
+        <property name="background">#BDBDBD
+</property>
+        <property name="foreground">#000000</property>
+        <property name="padding">5</property>
+        <property name="text" translatable="yes">Histograma</property>
+        <property name="underline">0</property>
+        <property name="width">26</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="ipady">0</property>
+          <property name="pady">10</property>
+          <property name="propagate">True</property>
+          <property name="row">8</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="Button_5">
+        <property name="command">GetImage_Histogram</property>
+        <property name="text" translatable="yes">Select Image</property>
+        <property name="width">24</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="pady">20</property>
+          <property name="propagate">True</property>
+          <property name="row">15</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="Label_1">
+        <property name="anchor">center</property>
+        <property name="background">#BDBDBD</property>
+        <property name="padding">5</property>
+        <property name="text" translatable="yes">Ecualización Global</property>
+        <property name="width">26</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="pady">10</property>
+          <property name="propagate">False</property>
+          <property name="row">10</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="btn_EqualizationGlobal">
+        <property name="command">GetEqualizationGlobal</property>
+        <property name="text" translatable="yes">Get Equalization Global</property>
+        <property name="width">24</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">10</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="Label_2">
+        <property name="anchor">center</property>
+        <property name="background">#BDBDBD</property>
+        <property name="padding">5</property>
+        <property name="text" translatable="yes">Ecualización local adaptiva</property>
+        <property name="width">26</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="pady">10</property>
+          <property name="propagate">True</property>
+          <property name="row">11</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="Label_6">
+        <property name="anchor">center</property>
+        <property name="text" translatable="yes">Limite de superposición</property>
+        <property name="width">26</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="pady">15</property>
+          <property name="propagate">True</property>
+          <property name="row">12</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Entry" id="id_EqualizationLimit">
+        <property name="textvariable">string:input_limit</property>
+        <property name="width">24</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">12</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="Label_7">
+        <property name="text" translatable="yes">Numero de cuadros</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="propagate">True</property>
+          <property name="row">13</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Entry" id="id_EqulizationNumberQuarter">
+        <property name="textvariable">string:input_numberQuarter</property>
+        <property name="width">24</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">13</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="Button_2">
+        <property name="command">GetEqualizationLocal</property>
+        <property name="text" translatable="yes">Get Equalization Local </property>
+        <property name="width">24</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">11</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="Button_3">
+        <property name="command">ShowImage_Histogram</property>
+        <property name="text" translatable="yes">Get Histogram</property>
+        <property name="width">24</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">8</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="Label_8">
+        <property name="anchor">center</property>
+        <property name="background">#BDBDBD</property>
+        <property name="padding">5</property>
+        <property name="text" translatable="yes">Numero de Frame</property>
+        <property name="width">24</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="pady">10</property>
+          <property name="propagate">True</property>
+          <property name="row">2</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Entry" id="input_IDFrame">
+        <property name="textvariable">string:IDFrame</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">2</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="Button_6">
+        <property name="command">StartErasyNoisy</property>
+        <property name="text" translatable="yes">Start</property>
+        <property name="width">20</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="Button_7">
+        <property name="command">StartImageRegistration</property>
+        <property name="text" translatable="yes">Start</property>
+        <property name="width">20</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">4</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>
