@@ -140,22 +140,34 @@ class Application:
                 if ret == True:
                     if(T > 1 and T < limit_T):
                         #Alignment image
-                        promFrame = self.AlignmentImage(np.array(promFrame , dtype=np.float32), np.array(frame , dtype=np.float32))
+                        promFrame_alignment = self.AlignmentImage(np.array(promFrame , dtype=np.float32), np.array(frame , dtype=np.float32))
                         #Remove erase noisy
                         firstOperation = float((T - 1) / T)
                         secondOperation = ((1 / T) * frame)
                         promFrame = (firstOperation * promFrame)+ secondOperation
+                        promFrame_alignment = (firstOperation * promFrame_alignment)+ secondOperation
                     elif(T == limit_T):
                         #Alignment image
-                        promFrame = self.AlignmentImage(np.array(promFrame , dtype=np.float32), np.array(frame , dtype=np.float32))
+                        promFrame_alignment = self.AlignmentImage(np.array(promFrame , dtype=np.float32), np.array(frame , dtype=np.float32))
+
                         #Get PromFrame
                         firstOperation = float((T - 1) / T)
                         secondOperation = ((1 / T) * frame)
-                        promFrame = (firstOperation * promFrame)+ secondOperation  
+                        promFrame = (firstOperation * promFrame)+ secondOperation
+                        promFrame_alignment = (firstOperation * promFrame_alignment)+ secondOperation
+
+                        #Parse to unit8
+                        promFrame_alignment = np.array(promFrame_alignment , dtype=np.uint8)
                         promFrame = np.array(promFrame , dtype=np.uint8)
+
                         #Show image
-                        cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
-                        cv2.imshow('Image', promFrame)     
+
+                        cv2.namedWindow('Image_with_noisy', cv2.WINDOW_NORMAL)
+                        cv2.imshow('Image_with_noisy', promFrame)     
+
+                        cv2.namedWindow('Image Aligned', cv2.WINDOW_NORMAL)
+                        cv2.imshow('Image Aligned', promFrame_alignment)   
+
                         cv2.waitKey(0)                               
                     elif(T == 1):
                         promFrame = frame
