@@ -299,7 +299,7 @@
     </child>
     <child>
       <object class="ttk.Button" id="Button_7">
-        <property name="command">StartImageRegistration</property>
+        <property name="command">StartImageDifference</property>
         <property name="text" translatable="yes">Start</property>
         <property name="width">20</property>
         <layout>
