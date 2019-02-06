@@ -130,52 +130,58 @@ class Application:
             messagebox.showerror("Error", "The video can't be open")
         else:
             T = 1
-            promFrame = []
             limit_T = int(self.builder.get_variable('IDFrame').get())
 
             # Read until video is completed
             while(video.isOpened()):
                 # Capture frame-by-frame
                 ret, frame = video.read()
+                
+                #Get x, y, channels of frame
+                value_x, value_y, channels = frame.shape
+
                 if ret == True:
-                    if(T > 1 and T < limit_T):
+                    if(T > 1):
                         #Alignment image
-                        promFrame_alignment = self.AlignmentImage(np.array(promFrame , dtype=np.float32), np.array(frame , dtype=np.float32))
-                        #Remove erase noisy
+                        alignment =  self.AlignmentImage(np.array( promFrame_alignment , dtype=np.uint8), np.array( frame , dtype=np.uint8))
+
                         firstOperation = float((T - 1) / T)
-                        secondOperation = ((1 / T) * frame)
-                        promFrame = (firstOperation * promFrame)+ secondOperation
-                        promFrame_alignment = (firstOperation * promFrame_alignment)+ secondOperation
-                    elif(T == limit_T):
-                        #Alignment image
-                        promFrame_alignment = self.AlignmentImage(np.array(promFrame , dtype=np.float32), np.array(frame , dtype=np.float32))
 
-                        #Get PromFrame
-                        firstOperation = float((T - 1) / T)
-                        secondOperation = ((1 / T) * frame)
-                        promFrame = (firstOperation * promFrame)+ secondOperation
-                        promFrame_alignment = (firstOperation * promFrame_alignment)+ secondOperation
+                        for x in range(0, value_x):
+                            for y in range(0, value_y):       
+                                #Remove erase noisy
+                                secondOperation_blue = ((1/ T) * alignment.item(x, y, 0))
+                                secondOperation_red = ((1/ T) * alignment.item(x, y, 1))
+                                secondOperation_green = ((1/ T) * alignment.item(x, y, 2))
 
-                        #Parse to unit8
-                        promFrame_alignment = np.array(promFrame_alignment , dtype=np.uint8)
-                        promFrame = np.array(promFrame , dtype=np.uint8)
+                                resultOperation_blue = (firstOperation * promFrame_alignment.item(x, y, 0)) + secondOperation_blue
+                                resultOperation_red = (firstOperation * promFrame_alignment.item(x, y, 1)) + secondOperation_red
+                                resultOperation_green = (firstOperation * promFrame_alignment.item(x, y, 2)) + secondOperation_green
+                                
+                                promFrame_alignment.itemset((x, y, 0), resultOperation_blue)
+                                promFrame_alignment.itemset((x, y, 1), resultOperation_red)
+                                promFrame_alignment.itemset((x, y, 2), resultOperation_green)
+                    
 
-                        #Show image
+                        if(T == limit_T):
+                            promFrame_alignment = np.array(promFrame_alignment , dtype=np.uint8)
+                            cv2.namedWindow('Image Normal')
+                            cv2.imshow('Image Normal', frame)     
 
-                        cv2.namedWindow('Image_with_noisy', cv2.WINDOW_NORMAL)
-                        cv2.imshow('Image_with_noisy', promFrame)     
-
-                        cv2.namedWindow('Image Aligned', cv2.WINDOW_NORMAL)
-                        cv2.imshow('Image Aligned', promFrame_alignment)   
-
-                        cv2.waitKey(0)                               
-                    elif(T == 1):
-                        promFrame = frame
-
+                            cv2.namedWindow('Image Aligned')
+                            cv2.imshow('Image Aligned', promFrame_alignment)     
+                            cv2.waitKey(0) 
+                            break                         
+                    else:
+                        promFrame_alignment = frame
+                        
                     T = T + 1
                     # Break the loop
                 else: 
                     break
+            
+            
+            print("Sali")
 
             # When everything done, release the video capture object
             video.release()
@@ -205,6 +211,7 @@ class Application:
             warp_matrix = np.eye(3, 3, dtype=np.float32)
         else :
             warp_matrix = np.eye(2, 3, dtype=np.float32)
+
         number_of_iterations = 10000; 
 
         termination_eps = 1e-10;
